@@ -117,7 +117,7 @@ func DoMapTask(mapf func(string, string) []KeyValue, filename string, mapid int,
 	for i := 0; i < ReduceNum; i++{
 		// 中间输出文件名mr-X-Y
 		intermediateFileName := intermediateName(mapid, i)
-		fmt.Println("创建中间输出文件%s", intermediateFileName)
+		fmt.Println("创建中间输出文件", intermediateFileName)
 		file, _ := os.Create(intermediateFileName)
 		enc := json.NewEncoder(file)
 		for _, kv := range kva {
@@ -136,7 +136,7 @@ func DoReduceTask(reducef func(string, []string) string, reduceid int, MapNum in
 	for i := 0; i < MapNum; i++{
 		// 中间输出文件名mr-X-Y
 		intermediateFileName := intermediateName(i, reduceid)
-		fmt.Println("读入中间输出文件%s", intermediateFileName)
+		fmt.Println("读入中间输出文件", intermediateFileName)
 		file, err := os.Open(intermediateFileName)
 		if err != nil {
 			log.Fatalf("cannot open %v", intermediateFileName)
@@ -175,29 +175,6 @@ func DoReduceTask(reducef func(string, []string) string, reduceid int, MapNum in
 	}
 	file.Close()
 	return nil;
-}
-
-//
-// example function to show how to make an RPC call to the coordinator.
-//
-// the RPC argument and reply types are defined in rpc.go.
-//
-func CallExample() {
-
-	// declare an argument structure.
-	args := ExampleArgs{}
-
-	// fill in the argument(s).
-	args.X = 99
-
-	// declare a reply structure.
-	reply := ExampleReply{}
-
-	// send the RPC request, wait for the reply.
-	call("Coordinator.Example", &args, &reply)
-
-	// reply.Y should be 100.
-	fmt.Printf("reply.Y %v\n", reply.Y)
 }
 
 //

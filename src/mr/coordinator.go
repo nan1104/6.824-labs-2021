@@ -11,7 +11,7 @@ import "sync"
 import "errors"
 import "fmt"
 
-var MaxTaskRunTime = 2 * time.Second
+var MaxTaskRunTime = 10 * time.Second
 
 // 任务状态定义
 type TaskState struct{
@@ -74,16 +74,6 @@ func (c *Coordinator) HandleReport(args *ReportArgs, reply *ReportReply) error {
 	reply.MasterAck = true
 	return nil
 }
-//
-// an example RPC handler.
-//
-// the RPC argument and reply types are defined in rpc.go.
-//
-func (c *Coordinator) Example(args *ExampleArgs, reply *ExampleReply) error {
-	reply.Y = args.X + 1
-	return nil
-}
-
 
 //
 // start a thread that listens for RPCs from worker.go
